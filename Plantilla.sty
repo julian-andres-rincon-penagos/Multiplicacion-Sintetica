@@ -1,0 +1,721 @@
+%%Paquete para cartillas de software educativo GEDES 
+%%Julian Andres Rincon Penagos
+%%Junio de 2024
+
+\NeedsTeXFormat{LaTeX2e}
+\def\fileversion{3.0}
+\def\filedate{2024/03/21}
+
+\ProvidesPackage{Plantilla}
+
+\usepackage{bookman}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{marginnote}
+\usepackage{fullpage}
+\usepackage{minitoc}
+\usepackage{multicol}
+\usepackage{hyperref}
+\spanishdecimal{.}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm,headheight=1cm,headsep=1cm,footskip=1cm,heightrounded, marginparwidth=0cm, marginparsep=0cm}
+
+%Nuevo tamaño de fuente base
+\renewcommand{\normalsize}{\fontsize{20}{25}\selectfont} % Cambia a 16pt con espaciado entre líneas de 19.2pt
+\setlength{\columnsep}{1cm} % Establece la separación a 1 centímetro
+
+%Definir un tamaño de letra mas grande
+\def\letra#1#2{
+\fontfamily{pbk}
+\fontsize{#1}{1.2#1} 
+\selectfont #2}
+
+%Degine los colores
+\def\ccRojo{1}
+\def\ccVerde{1}
+\def\ccAzul{1}
+
+\def\coRojo{0.45}
+\def\coVerde{0.45}
+\def\coAzul{0.45}
+
+\def\ceRojo{0.45}
+\def\ceVerde{0.45}
+\def\ceAzul{0.45}
+
+\def\ctRojo{0.85}
+\def\ctVerde{0.85}
+\def\ctAzul{0.85}
+
+\usepackage{color}
+\definecolor{ColorClaro}{rgb}{1,1,1}
+\definecolor{ColorOscuro}{rgb}{0.45,0.45,0.45}
+\definecolor{ColorEncabezado}{rgb}{0.45,0.45,0.45}
+\definecolor{ColorContenido}{rgb}{0.85,0.85,0.85}
+\definecolor{ColorNegro}{rgb}{0,0,0}
+\definecolor{ColorEjemplosEncabezado}{rgb}{0.45,0.45,0.45}
+\definecolor{ColorEjemplosCuerpo}{rgb}{0.85,0.85,0.85}
+\definecolor{ColorDefinicionesEncabezado}{rgb}{0.45,0.45,0.45}
+\definecolor{ColorDefinicionesCuerpo}{rgb}{0.85,0.85,0.85}
+
+\newcommand{\colClaro}[3]
+{
+	\definecolor{ColorClaro}{rgb}{#1,#2,#3}
+}
+
+\newcommand{\colOscuro}[3]
+{
+	\definecolor{ColorOscuro}{rgb}{#1,#2,#3}
+}
+
+\newcommand{\colContenido}[3]
+{
+	\definecolor{ColorContenido}{rgb}{#1,#2,#3}
+}
+
+\newcommand{\colEncabezado}[3]
+{
+	\definecolor{ColorEncabezado}{rgb}{#1,#2,#3}
+}
+
+\newcommand{\colCajas}[3]
+{
+	\definecolor{ColorCajas}{rgb}{#1,#2,#3}
+}
+
+\newcommand{\colEjemplos}[6]
+{
+	\definecolor{ColorEjemplosEncabezado}{rgb}{#1,#2,#3}
+	\definecolor{ColorEjemplosCuerpo}{rgb}{#4,#5,#6}
+}
+
+\newcommand{\colDefiniciones}[6]
+{
+	\definecolor{ColorDefinicionesEncabezado}{rgb}{#1,#2,#3}
+	\definecolor{ColorDefinicionesCuerpo}{rgb}{#4,#5,#6}
+}
+
+\newcommand{\establecerGeometria}[6]
+{
+	\savegeometry{L2}
+	\newgeometry{verbose,lmargin=#1cm,rmargin=#2cm,tmargin=#3cm,bmargin=#4cm,marginparwidth=#5cm,marginparsep=#6cm,headsep=1cm,footskip=1cm,heightrounded,twoside}
+}
+
+%Crear los contadores
+\newcounter{CategoriaA}
+\newcounter{CategoriaB}
+\newcounter{CategoriaC}
+\newcounter{CategoriaD}
+\newcounter{CategoriaE}
+\newcounter{CategoriaF}
+\newcounter{Bibliograf}
+         
+\def\dTitulo{}
+\def\dSubTitulo{}
+\def\dAutores{}
+\def\dCorreo{}
+\def\dVinculacionDocente{}
+\def\dInstitucion{}
+\def\dGrupo{}
+\def\dCiudad{}
+\def\dFecha{}
+\def\dMateria{}
+\def\dTipoCapitulo{}
+\def\dNombreCapitulo{}
+\def\dEditorial{}
+\def\dAutoresCorto{}
+\def\dDescripcion{}
+\def\dResumen{}
+\def\dPalabrasClave{}
+
+\def\dEncabezadoI{}
+\def\dEncabezadoII{}
+\def\dPieI{}
+\def\dPieII{}
+
+%llamar a la imagen de fondo
+%\usepackage{wallpaper}
+%\CenterWallPaper{0.95}{Fondos/Fondo.eps}
+
+%comando para hacer una caja ##################################################
+\newcommand{\CajaColor}[2]
+{{\fcolorbox{#2}{#2}{\makebox[0.88\columnwidth][l]{#1}}}}
+
+%comando para hacer una caja ##################################################
+\newcommand{\CajaColorB}[2]
+{{\fcolorbox{#2}{#2}{\parbox[t]{0.98\columnwidth}{#1}}}}
+
+%comando para hacer una caja ##################################################
+\newcommand{\CajaColorC}[2]
+{\fcolorbox{ColorCajas}{ColorCajas}{\makebox[#2cm][l]{\textcolor{ColorNegro}{\begin{minipage}[t]{#2cm}%
+#1%
+\end{minipage}}}}}
+
+%comando para hacer una caja ##################################################
+\newcommand{\CajaColorFancy}[2]
+{{\fcolorbox{#2}{#2}{\parbox[t]{\textwidth}{#1}}}}
+
+
+%comando para las imagenes $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\newcommand{\ImgEnc}
+{
+	{
+		\begin{minipage}[t]{1\columnwidth} \CajaColor{}{ColorClaro}
+		\end{minipage}
+	}
+}
+
+\newcommand{\Bibliof}[2]
+{[#1] \vspace{3mm} #2}
+
+%Campo para categorias $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\newcommand{\@CajaPedagogica}[3]{%
+	\par\vspace{5mm}\noindent
+	\begin{minipage}[t]{\columnwidth}%
+		\CajaColorB{\textcolor{ColorClaro}{#1}}{#2}\par\nointerlineskip
+		\CajaColorB{%
+			\begin{minipage}[t]{0.95\columnwidth}%
+				#3%
+			\end{minipage}%
+		}{ColorContenido}%
+	\end{minipage}%
+	\par\vspace{5mm}%
+}
+
+\newcommand{\Ejemplo}[2]
+{%
+	\stepcounter{CategoriaA}%
+	\@CajaPedagogica{\textbf{Ejemplo \theCategoriaA:} #2}{ColorEjemplosEncabezado}{#1}%
+}
+
+\newcommand{\Ejercicio}[2]
+{%
+	\stepcounter{CategoriaB}%
+	\@CajaPedagogica{\textbf{Ejercicio \theCategoriaB:} #2}{ColorEncabezado}{#1}%
+}
+
+\newcommand{\Solucion}
+{
+	\stepcounter{CategoriaC}
+	\vspace{5mm}
+	\CajaColorB{\textcolor{ColorClaro}{\textbf{Soluci\'on}}}{ColorEncabezado} 
+}
+
+\newcommand{\Teorema}[2]
+{%
+	\stepcounter{CategoriaD}%
+	\@CajaPedagogica{\textbf{Teorema \theCategoriaD}: #2}{ColorEncabezado}{#1}%
+}
+
+\newcommand{\Observacion}[2]
+{%
+	\@CajaPedagogica{\textbf{Observaci\'on } \emph{#2}}{ColorEncabezado}{#1}%
+}
+
+\newcommand{\Definicion}[2]
+{%
+	\stepcounter{CategoriaE}%
+	\@CajaPedagogica{\textbf{Definici\'on \theCategoriaE:} #2}{ColorDefinicionesEncabezado}{#1}%
+}
+
+\newcommand{\GoogleColab}[1]
+{
+	\vspace{5mm}
+	\CajaColorB{\textcolor{ColorClaro}{\textbf{Programa de Google Colab}}}{ColorDefinicionesEncabezado}
+	\\
+	\CajaColorB{
+	\begin{minipage}[t]{0.95\columnwidth}%
+		\href{#1}{
+		Este programa se ha desarrollado usando Google Colab. Para ver el programa haz clic en el logo.\\
+		\includegraphics[width=24cm]{Imagenes/google-colab}
+	}
+	\end{minipage}}{ColorContenido}
+	\vspace{5mm}
+}
+
+\newcommand{\ArchivoPrograma}[2]
+{
+	\vspace{5mm}
+	\CajaColorB{\textcolor{ColorClaro}{\textbf{Archivo de Programa }}}{ColorEncabezado}
+	\\
+	\CajaColorB{
+		\begin{minipage}[t]{0.95\columnwidth}%
+		El archivo de programa se encuentra en la ruta: \emph{#1}%
+		\end{minipage}
+	}{ColorContenido}
+	\vspace{5mm}	
+}
+
+\newcommand{\@datoAutor}[2]{%
+	\par\noindent\hangindent=4.6cm\hangafter=1%
+	\makebox[4.6cm][l]{\textbf{\textcolor{ColorOscuro}{#1}}}#2\par
+}
+
+\newcommand{\InformacionAutor}
+{%
+	\par\vspace{8mm}\noindent
+	\begin{minipage}[t]{\columnwidth}%
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{1.2pt}%
+		\noindent\fcolorbox{ColorEncabezado}{ColorEncabezado}{%
+			\parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+				\fontsize{17}{21}\selectfont
+				\textcolor{ColorClaro}{\textbf{Informaci\'on del Autor y Referencia del Art\'iculo}}%
+				\ifx\dTipoCapitulo\empty\else
+					\hfill\textcolor{ColorClaro}{\textsc{\dTipoCapitulo~\thechapter}}%
+				\fi
+			}%
+		}%
+		\par\nointerlineskip\noindent
+		\fcolorbox{ColorEncabezado}{ColorContenido}{%
+			\parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+				\raggedright
+				{\color{ColorNegro}%
+					{\fontsize{19}{24}\selectfont\textbf{\textcolor{ColorOscuro}{%
+						\ifx\dAutores\empty\dAutoresCorto\else\dAutores\fi%
+					}}\par}%
+					\ifx\dVinculacionDocente\empty\else
+						\vspace{1.5mm}%
+						{\fontsize{15}{20}\selectfont\emph{\dVinculacionDocente}\par}%
+					\fi
+					\vspace{3mm}%
+					\textcolor{ColorOscuro}{\rule{\linewidth}{0.8pt}}\par
+					\vspace{3mm}%
+					{\fontsize{15}{21}\selectfont
+						\ifx\dInstitucion\empty\else\@datoAutor{Instituci\'on:}{\dInstitucion}\fi
+						\ifx\dGrupo\empty\else\@datoAutor{Grupo:}{\dGrupo}\fi
+						\ifx\dMateria\empty\else\@datoAutor{\'Area / Materia:}{\dMateria}\fi
+						\ifx\dCiudad\empty
+							\ifx\dFecha\empty\else\@datoAutor{Fecha:}{\dFecha}\fi
+						\else
+							\ifx\dFecha\empty
+								\@datoAutor{Ubicaci\'on:}{\dCiudad}%
+							\else
+								\@datoAutor{Lugar y fecha:}{\dCiudad\ --- \dFecha}%
+							\fi
+						\fi
+						\ifx\dCorreo\empty\else
+							\@datoAutor{Correo:}{\href{mailto:\dCorreo}{\texttt{\dCorreo}}}%
+						\fi
+					}%
+					\vspace{4mm}%
+					{%
+						\setlength{\fboxsep}{8pt}%
+						\setlength{\fboxrule}{0.8pt}%
+						\noindent\fcolorbox{ColorOscuro}{ColorClaro}{%
+							\parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+								\raggedright
+								{\fontsize{15}{20}\selectfont\textbf{\textcolor{ColorOscuro}{C\'omo referenciar este art\'iculo}}\par}%
+								\vspace{2.5mm}%
+								{\fontsize{14}{19}\selectfont
+									\par\noindent\hangindent=1.8cm\hangafter=1%
+									\makebox[1.8cm][l]{\textbf{APA:}}%
+									\ifx\dAutores\empty\dAutoresCorto\else\dAutores\fi\ %
+									(\dFecha). %
+									\emph{\ifx\dNombreCapitulo\empty\dTitulo\else\dNombreCapitulo\fi}. %
+									\ifx\dTipoCapitulo\empty\else\dTipoCapitulo~\thechapter, \fi%
+									\ifx\dMateria\empty\else\dMateria. \fi%
+									\dInstitucion\ifx\dCiudad\empty\else, \dCiudad\fi.\par
+									\vspace{2mm}%
+									\par\noindent\hangindent=1.8cm\hangafter=1%
+									\makebox[1.8cm][l]{\textbf{IEEE:}}%
+									[1] \ifx\dAutoresCorto\empty\dAutores\else\dAutoresCorto\fi, %
+									``\ifx\dNombreCapitulo\empty\dTitulo\else\dNombreCapitulo\fi,'' %
+									\emph{\ifx\dMateria\empty\dInstitucion\else\dMateria\ -- \dInstitucion\fi}, %
+									\ifx\dTipoCapitulo\empty\else\dTipoCapitulo~\thechapter, \fi%
+									\ifx\dCiudad\empty\else\dCiudad, \fi\dFecha.\par
+								}%
+							}%
+						}%
+					}%
+				}%
+			}%
+		}%
+	\end{minipage}%
+	\par\vspace{5mm}%
+}
+
+\newcommand{\NumeroArticulo}[1]{
+	\setcounter{chapter}{#1}
+}
+
+\def\ReglaAntes{\textcolor{ColorOscuro}{{\titlerule[3pt]}}{ \vspace{1pt}}\textcolor{ColorOscuro}{{\titlerule[1pt]}} {\vspace{1pt}}}
+\def\ReglaDespues{{\vspace{1pt}} \textcolor{ColorOscuro}{{\titlerule[1pt]}}}
+
+\newcommand{\@EntradaReferencia}[1]{%
+	\stepcounter{Bibliograf}%
+	\par\vspace{2.5mm}%
+	{\raggedright\noindent
+	\hangindent=1.4cm\hangafter=1%
+	\makebox[1.4cm][l]{\textbf{\textcolor{ColorOscuro}{[\theBibliograf]}}}%
+	#1\par}%
+}
+
+\newcommand{\ReferenciaLibro}[5]{%
+	\@EntradaReferencia{%
+		#1 (#2). \emph{#3}. %
+		\if\relax\detokenize{#4}\relax#5.\else#4: #5.\fi
+	}%
+}
+
+\newcommand{\ReferenciaRevista}[6]{%
+	\@EntradaReferencia{%
+		#1 (#2). #3. \emph{#4}%
+		\if\relax\detokenize{#5}\relax\else, \emph{#5}\fi
+		\if\relax\detokenize{#6}\relax\else, #6\fi.%
+	}%
+}
+
+\newcommand{\ReferenciaInternet}[4]{%
+	\@EntradaReferencia{%
+		#1 (#2). \emph{#3}. Recuperado de \url{#4}%
+	}%
+}
+
+\AtBeginDocument{%
+	\@ifpackageloaded{natbib}{%
+		\renewcommand{\bibsection}{\section*{Referencias Bibliogr\'aficas}}%
+	}{}%
+}
+
+\newcommand{\PaginaEnBlanco}{ \newpage \textcolor{blanco}{} \newpage}
+
+%Definir un portada ==============================================================
+\newcommand{\Titulo}[1]
+{
+	\def\dTitulo{#1}
+}
+
+\newcommand{\SubTitulo}[1]
+{
+	\def\dSubTitulo{#1}
+}
+
+\newcommand{\Descripcion}[1]
+{
+	\def\dDescripcion{#1}
+}
+
+\newcommand{\Resumen}[1]
+{
+	\def\dResumen{#1}
+}
+
+\newcommand{\PalabrasClave}[1]
+{
+	\def\dPalabrasClave{#1}
+}
+
+\newcommand{\Autores}[1]
+{
+	\def\dAutores{#1}
+	
+}
+
+\newcommand{\Correo}[1]
+{
+	\def\dCorreo{#1}
+}
+
+\newcommand{\VinculacionDocente}[1]
+{
+	\def\dVinculacionDocente{#1}
+}
+
+\newcommand{\AutoresCorto}[1]
+{
+	\def\dAutoresCorto{#1}
+}
+
+\newcommand{\Institucion}[1]
+{
+	\def\dInstitucion{#1}
+}
+
+\newcommand{\Grupo}[1]
+{
+	\def\dGrupo{#1}
+}
+
+\newcommand{\Ciudad}[1]
+{
+	\def\dCiudad{#1}
+}
+
+\newcommand{\Fecha}[1]
+{
+	\def\dFecha{#1}
+}
+
+\newcommand{\Materia}[1]
+{
+	\def\dMateria{#1}
+}
+
+\newcommand{\Logo}[1]
+{
+	\def\dLogo{#1}
+}
+
+\newcommand{\TipoCapitulo}[1]
+{
+	\def\dTipoCapitulo{#1}
+}
+
+\newcommand{\NombreCapitulo}[1]
+{
+	\def\dNombreCapitulo{#1}
+}
+
+\newcommand{\Editorial}[1]
+{
+	\def\dEditorial{#1}
+}
+
+%Definir los derechos del autor
+\newcommand{\DerechosAutor}{
+	\newpage{}
+	.
+	\vfill{}
+
+	\textbf{}%
+	\framebox{\begin{minipage}[t]{1\columnwidth}%
+	\textbf{AUTOR}
+
+	\dAutores{}
+	
+	\dInstitucion{}
+	
+	\dFecha{}
+
+	\vspace{4cm}
+
+	\textbf{TODOS LOS DERECHOS RESERVADOS}
+
+	\vspace{1cm}
+
+	No est\'a permitida importar, vender, difundir y exportar total o parcialmente
+	esta obra, ni su tratamiento o transmisi\'on por cualquier m\'etodo sin
+	autorizaci\'on escrita de la editorial. El contenido y los derechos
+	de la presente obra son excluidos del autor.
+	
+	\vspace{2cm}
+	
+	{\tiny{Diagramaci\'on y dise\'no \LaTeX{}: Juli\'an Andr\'es Rinc\'on Penagos}}{\small \par}
+	\end{minipage}}
+	
+	\vfill{}
+	.
+
+	\newpage{}
+}
+
+\newcommand{\GenerarPortada}{
+\begin{center}
+\textbf{\Huge{\textsc{\dTitulo}}}
+\end{center}
+
+\vfill{}
+
+\begin{center}
+\huge{\textsc{\dAutores}}
+\end{center}
+
+\begin{center}
+\LARGE{\textsc{\dGrupo}}
+\end{center}
+
+\begin{center}
+\LARGE{\textsc{\dMateria}}
+\end{center}
+
+\vfill{}
+
+\begin{center}
+\LARGE{\textsc{Editorial}}
+\end{center}
+
+\begin{center}
+\Large{\dEditorial}
+\end{center}
+
+\vfill{}
+
+\begin{center}
+\textbf{\Large{\textsc{\dInstitucion}}}
+\end{center}
+
+\begin{center}
+\large{\dCiudad}
+\end{center}
+
+\begin{center}
+\dFecha
+\end{center}
+}
+
+%Define los encabezados y pies de pagina
+\newcommand{\EncabezadoI}[1]{\def\dEncabezadoI{#1}}
+\newcommand{\EncabezadoII}[1]{\def\dEncabezadoII{#1}}
+\newcommand{\PieI}[1]{\def\dPieI{#1}}
+\newcommand{\PieII}[1]{\def\dPieII{#1}}
+
+
+%Codigo para secciones #############################################################
+\usepackage{titlesec}
+
+%Codigo para secciones #############################################################
+\usepackage{titlesec}
+\global\def\TipoCap{}
+
+%Numeracion directa de secciones para formato de articulo cientifico
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+%titulos  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\newcommand{\@encabezadoCientificoPre}{%
+	{%
+		\setlength{\fboxsep}{5pt}%
+		\noindent\makebox[\textwidth][l]{%
+			\fcolorbox{ColorEncabezado}{ColorEncabezado}{%
+				\fontsize{13}{15}\selectfont\sffamily\bfseries\textcolor{ColorClaro}{%
+					\ifx\dTipoCapitulo\empty ART\'ICULO\else\MakeUppercase{\dTipoCapitulo}\fi~N.\textsuperscript{o}~\thechapter%
+				}%
+			}%
+			\ifx\dMateria\empty\else
+				\hspace{3mm}\fontsize{13}{15}\selectfont\sffamily\bfseries\textcolor{ColorOscuro}{\MakeUppercase{\dMateria}}%
+			\fi
+			\hfill
+			\ifx\dFecha\empty\else
+				\fontsize{13}{15}\selectfont\sffamily\mdseries\textcolor{ColorOscuro}{\dFecha}%
+			\fi
+		}%
+	}%
+}
+
+\newcommand{\@encabezadoCientificoPost}{%
+	\par\vspace{2mm}%
+	\ifx\dDescripcion\empty\else
+		\noindent{\fontsize{15}{20}\selectfont\sffamily\itshape\color{ColorOscuro}\raggedright\dDescripcion\par}%
+	\fi
+	\vspace{3mm}%
+	\noindent\textcolor{ColorOscuro}{\rule{\textwidth}{1.5pt}}\par
+	\vspace{3.5mm}%
+	\noindent{\fontsize{18}{23}\selectfont\rmfamily\bfseries\color{ColorOscuro}\raggedright
+		\ifx\dAutores\empty\dAutoresCorto\else\dAutores\fi\par}%
+	\ifx\dVinculacionDocente\empty\else
+		\vspace{1mm}%
+		\noindent{\fontsize{14}{19}\selectfont\rmfamily\itshape\color{ColorNegro}\raggedright\dVinculacionDocente\par}%
+	\fi
+	\ifx\dInstitucion\empty\else
+		\vspace{1.5mm}%
+		\noindent{\fontsize{14}{19}\selectfont\rmfamily\mdseries\color{ColorNegro}\raggedright
+			\dInstitucion\ifx\dCiudad\empty\else\ --- \dCiudad\fi\par}%
+	\fi
+	\ifx\dCorreo\empty\else
+		\vspace{1mm}%
+		\noindent{\fontsize{13}{18}\selectfont\ttfamily\color{ColorOscuro}\raggedright
+			\href{mailto:\dCorreo}{\dCorreo}\par}%
+	\fi
+	\ifx\dResumen\empty\else
+		\vspace{5mm}%
+		{%
+			\setlength{\fboxsep}{10pt}%
+			\setlength{\fboxrule}{0.9pt}%
+			\noindent\fcolorbox{ColorEncabezado}{ColorContenido}{%
+				\parbox[t]{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}{%
+					\fontsize{14}{19}\selectfont\rmfamily\mdseries\color{ColorNegro}%
+					\textbf{\textcolor{ColorOscuro}{Resumen---}}\dResumen\par
+					\ifx\dPalabrasClave\empty\else
+						\vspace{2.5mm}%
+						\noindent\textcolor{ColorOscuro}{\rule{\linewidth}{0.4pt}}\par
+						\vspace{1.5mm}%
+						\noindent\raggedright\textbf{\textcolor{ColorOscuro}{Palabras clave: }}\emph{\dPalabrasClave}\par
+					\fi
+				}%
+			}%
+		}%
+		\par
+	\fi
+}
+
+\titleformat
+{\chapter} %Comando
+[display]       %Tipo
+{\normalfont\thispagestyle{fancy}} %Formato
+{\@encabezadoCientificoPre}
+{3mm} %Separacion
+{\fontsize{28}{34}\selectfont\sffamily\bfseries\color{ColorNegro}\raggedright}
+[\@encabezadoCientificoPost]
+\titlespacing*{\chapter}{0pt}{-10pt}{14pt}
+
+%subtitulos segundo nivel $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\titleformat
+{\section}
+[hang]
+{\filright  \sffamily \huge \bfseries }
+{\fcolorbox{ColorOscuro}{ColorOscuro}{\textcolor{ColorClaro}{\letra{10mm}{\thesection}}} }
+{5pt}
+{}
+[\textcolor{ColorOscuro}{{\titlerule[2pt]}}]
+
+%subtitulos tercer  nivel $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\titleformat
+{\subsection}
+[hang]
+{\filright \sffamily  \bfseries \LARGE}
+{\fcolorbox{ColorOscuro}{ColorOscuro}{\textcolor{ColorClaro}{\letra{8mm}{\thesubsection}}}}
+{5pt}
+{}
+[\textcolor{ColorOscuro}{{\titlerule[2pt]}}]
+
+%subtitulos cuarto  nivel $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\titleformat
+{\subsubsection}
+[hang]
+{ \filright \normalfont  \sffamily  \bfseries \Large}
+{\fcolorbox{ColorOscuro}{ColorOscuro}{\textcolor{ColorClaro}{\letra{6mm}{ \thesubsubsection}}}}
+{5pt}
+{}
+[\textcolor{ColorOscuro}{{\titlerule[2pt]}}]
+
+%Codigo para no partir palabras
+\tolerance = 10000
+\pretolerance = 10000
+\setlength{\parindent}{0pt}
+
+%Encabezados y Pies $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % borrar todos los ajustes
+
+%Encabezado y pies de paginas pares #################################### 
+\fancyhead[LE]{\textcolor{ColorOscuro}{\letra{3mm}{\dTipoCapitulo ~ \thechapter \hfill \dNombreCapitulo}}  \\ \CajaColorFancy{\textcolor{ColorClaro}{\letra{3mm}{\dFecha}} \hfill \textcolor{ColorClaro}{\letra{3mm}{\dMateria}}}{ColorOscuro}}
+
+\fancyfoot[RE]{\CajaColorFancy{\textcolor{ColorClaro}{} \hfill \textcolor{ColorClaro}{\letra{5mm}{\thepage}}}{ColorOscuro} \textcolor{ColorOscuro}{\letra{3mm}{\dInstitucion}} \hfill \textcolor{ColorOscuro}{\letra{3mm}{Art\'iculos Cient\'ificos}}}
+
+
+%Encabezado y pie paginas impares ####################################
+\fancyhead[RO]{\textcolor{ColorOscuro}{\letra{3mm}{\dTipoCapitulo ~ \thechapter \hfill \dNombreCapitulo}} \\ \CajaColorFancy{\textcolor{ColorClaro}{\letra{3mm}{\dMateria}}}{ColorOscuro}}
+
+\fancyfoot[RO]{\CajaColorFancy{\textcolor{ColorClaro}{\letra{5mm}{\thepage}}}{ColorOscuro} \\  \textcolor{ColorOscuro}{\letra{3mm}{\dAutoresCorto}} \hfill \textcolor{ColorOscuro}{\letra{3mm}{\dInstitucion}}}
+
+%Paquete para el codigo fuente de pascal
+\usepackage{listings}
+\lstloadlanguages{Pascal}
+
+\lstset{language=pascal,
+tabsize=2, 
+numbers=left, 
+numberstyle=\tiny, 
+stepnumber=1, 
+numbersep=5pt, 
+frame=single, 
+showstringspaces=false, 
+breaklines=true,
+keywords={def,False,True,if,while,for,return,in,range,print,import,as,else,function,procedure,end,begin,do,var,then},
+commentstyle=\color[rgb]{0.4,0.6,0.8},
+keywordstyle=\bfseries\color[rgb]{0.12,0.15,0.47},
+stringstyle=\color{blue}\itshape,
+numberstyle=\color[rgb]{0.9,0.2,0.3}\small }

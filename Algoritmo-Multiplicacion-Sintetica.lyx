@@ -1,0 +1,1741 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass Plantilla
+\begin_preamble
+\usepackage{Plantilla}
+\end_preamble
+\use_default_options true
+\begin_modules
+multicol
+\end_modules
+\maintain_unincluded_children no
+\language spanish
+\language_package default
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement H
+\float_alignment class
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 30cm
+\paperheight 39cm
+\leftmargin 3cm
+\topmargin 5cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 5
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tablestyle default
+\bullet 0 2 1 -1
+\bullet 1 2 14 -1
+\bullet 2 2 16 -1
+\bullet 3 2 34 -1
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 3
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Autores
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout AutoresCorto
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout Correo
+jarincon@uniquindio.edu.co
+\end_layout
+
+\begin_layout Institucion
+Universidad del Quindío | Facultad de Ciencias Básicas y Tecnologías
+\end_layout
+
+\begin_layout Ciudad
+Armenia, Quindío, Colombia
+\end_layout
+
+\begin_layout Materia
+Cálculo Diferencial
+\end_layout
+
+\begin_layout Fecha
+Octubre de 2026
+\end_layout
+
+\begin_layout TipoCapitulo
+Artículo
+\end_layout
+
+\begin_layout NumeroArticulo
+0
+\end_layout
+
+\begin_layout NombreCapitulo
+Algoritmo de la Multiplicación Sintética
+\end_layout
+
+\begin_layout DescripcionCapitulo
+Método cíclico e inverso a la División Sintética para construir funciones polinómicas de grado arbitrario a partir de sus raíces.
+\end_layout
+
+\begin_layout Resumen
+En la enseñanza del Cálculo Diferencial resulta frecuente generar funciones polinómicas con raíces conocidas para ejercitar la factorización mediante División Sintética.
+ Aunque la expansión paramétrica directa es práctica en grados dos y tres, se vuelve combinatoriamente incómoda a partir del grado cuatro debido al crecimiento exponencial de las sumas de productos elementales descritas por las relaciones de Viète.
+ En este artículo se presenta el algoritmo de la 
+\series bold
+Multiplicación Sintética
+\series default
+, concebido alrededor de 2018 en la Universidad del Quindío como el procedimiento inverso a la División Sintética.
+ Partiendo de un coeficiente inicial unitario, el método incorpora de manera cíclica cada factor lineal mediante multiplicación en diagonal descendente y suma por columnas —equivalente a una convolución discreta iterativa con núcleo 
+\begin_inset Formula $(1,-r_{k})$
+\end_inset
+
+— en exactamente 
+\begin_inset Formula $n$
+\end_inset
+
+ pasos.
+ Se demuestra por inducción matemática su equivalencia con los polinomios simétricos elementales, se desarrolla el ejemplo completo para las raíces 
+\begin_inset Formula $x=2,3,5,7$
+\end_inset
+
+, se extiende el algoritmo a factores no mónicos 
+\begin_inset Formula $(a_{k}x-b_{k})$
+\end_inset
+
+ y raíces múltiples, se presenta una implementación optimizada en Python de complejidad 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+ sin listas intermedias redundantes y se formaliza su dualidad con el esquema de Ruffini–Horner.
+\end_layout
+
+\begin_layout PalabrasClave
+Multiplicación sintética, división sintética, relaciones de Viète, convolución discreta, factores no mónicos, método de Ruffini–Horner, Cálculo Diferencial.
+\end_layout
+
+\begin_layout Capitulo
+Algoritmo de la Multiplicación Sintética
+\end_layout
+
+\begin_layout Seccion
+Introducción y Origen del Problema
+\end_layout
+
+\begin_layout Standard
+Al iniciar la docencia del curso de 
+\series bold
+Cálculo Diferencial
+\series default
+ en la 
+\series bold
+Universidad del Quindío
+\series default
+, hacia el año 2018, surgió la necesidad práctica de generar funciones polinómicas aleatorias para los estudiantes.
+ El propósito pedagógico era que pudieran hallar las raíces o cortes con el eje 
+\begin_inset Formula $x$
+\end_inset
+
+ de dichas funciones mediante el algoritmo de la 
+\series bold
+División Sintética
+\series default
+, asegurando de antemano que las soluciones pertenecieran a un conjunto numérico manejable en clase y evaluación.
+\end_layout
+
+\begin_layout Standard
+Una primera aproximación consistió en definir parámetros generales y expandir algebraicamente el producto de factores lineales.
+ Por ejemplo, para construir una función cuadrática con raíces dadas 
+\begin_inset Formula $x=a$
+\end_inset
+
+ y 
+\begin_inset Formula $x=b$
+\end_inset
+
+, se parte de la forma factorizada:
+\begin_inset Formula 
+\[
+f(x)=(x-a)(x-b)
+\]
+
+\end_inset
+
+y al desarrollar el producto se obtiene la expresión general:
+\begin_inset Formula 
+\[
+f(x)=x^{2}-(a+b)x+ab
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Este resultado resulta muy práctico para generar funciones cuadráticas aleatorias: basta con elegir los valores de 
+\begin_inset Formula $a$
+\end_inset
+
+ y 
+\begin_inset Formula $b$
+\end_inset
+
+ dentro de una lista de números enteros aleatorios en un intervalo simétrico, por ejemplo 
+\begin_inset Formula $a,b\in\left[-n,n\right]$
+\end_inset
+
+.
+ De forma análoga, el enfoque puede extenderse a polinomios cúbicos mediante:
+\begin_inset Formula 
+\[
+f(x)=(x-a)(x-b)(x-c)=x^{3}-(a+b+c)x^{2}+(ab+ac+bc)x-abc
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sin embargo, aunque este método funciona muy bien para funciones cuadráticas e incluso cúbicas, el problema se acrecienta rápidamente cuando se desean generar funciones polinómicas de 
+\series bold
+grado cuatro o superior
+\series default
+.
+ Desde el punto de vista del álgebra clásica, la expansión analítica de un polinomio mónico a partir de sus raíces 
+\begin_inset Formula $r_{1},r_{2},\dots,r_{n}$
+\end_inset
+
+ está regida por las 
+\series bold
+relaciones de Viète
+\series default
+ (Viète, 1646), según las cuales el polinomio se expresa en términos de los 
+\series bold
+polinomios simétricos elementales
+\series default
+ 
+\begin_inset Formula $e_{k}(r_{1},\dots,r_{n})$
+\end_inset
+
+ como:
+\begin_inset Formula 
+\[
+f(x)=\prod_{i=1}^{n}(x-r_{i})=\sum_{k=0}^{n}(-1)^{k}e_{k}(r_{1},\dots,r_{n})\,x^{n-k}
+\]
+
+\end_inset
+
+donde 
+\begin_inset Formula $e_{0}(r_{1},\dots,r_{n})=1$
+\end_inset
+
+ y, para cada 
+\begin_inset Formula $1\le k\le n$
+\end_inset
+
+, se define:
+\begin_inset Formula 
+\[
+e_{k}(r_{1},\dots,r_{n})=\sum_{1\le i_{1}<i_{2}<\dots<i_{k}\le n}r_{i_{1}}r_{i_{2}}\cdots r_{i_{k}}
+\]
+
+\end_inset
+
+Calcular de forma directa cada 
+\begin_inset Formula $e_{k}$
+\end_inset
+
+ exige evaluar 
+\begin_inset Formula $\binom{n}{k}$
+\end_inset
+
+ productos de raíces, lo que implica enumerar un total de 
+\begin_inset Formula $\sum_{k=0}^{n}\binom{n}{k}=2^{n}$
+\end_inset
+
+ términos combinatorios.
+ Este crecimiento exponencial explica por qué la deducción manual y la codificación de fórmulas cerradas paramétricas fracasan en la práctica a partir de 
+\begin_inset Formula $n\ge4$
+\end_inset
+
+, motivando la búsqueda de un algoritmo iterativo libre de enumeración combinatoria explícita.
+\end_layout
+
+\begin_layout Seccion
+El Algoritmo de la Multiplicación Sintética
+\end_layout
+
+\begin_layout Standard
+La solución propuesta para superar esta limitación consiste en utilizar el algoritmo de la 
+\series bold
+División Sintética al revés
+\series default
+.
+ En lugar de tomar los coeficientes de un polinomio para reducir su grado al dividir por un factor lineal 
+\begin_inset Formula $(x-r)$
+\end_inset
+
+, el proceso parte del coeficiente principal unitario y va incorporando una raíz a la vez hasta construir el polinomio completo.
+\end_layout
+
+\begin_layout Standard
+Sea 
+\begin_inset Formula $R=\left\{ r_{1},r_{2},\dots,r_{n}\right\} $
+\end_inset
+
+ el conjunto ordenado de 
+\begin_inset Formula $n$
+\end_inset
+
+ raíces deseadas.
+ Para cada raíz 
+\begin_inset Formula $x=r_{k}$
+\end_inset
+
+ se transpone el valor 
+\begin_inset Formula $r_{k}$
+\end_inset
+
+ al lado de la variable para formar el factor lineal 
+\begin_inset Formula $(x-r_{k})$
+\end_inset
+
+.
+ Para efectuar la multiplicación tabular, se emplea únicamente el término independiente 
+\begin_inset Formula $-r_{k}$
+\end_inset
+
+ como multiplicador.
+\end_layout
+
+\begin_layout Standard
+El procedimiento inicia con el arreglo de coeficientes 
+\begin_inset Formula $c^{(0)}=\left[1\right]$
+\end_inset
+
+.
+ En la etapa 
+\begin_inset Formula $k$
+\end_inset
+
+ (para 
+\begin_inset Formula $k=1,2,\dots,n$
+\end_inset
+
+), los coeficientes actuales 
+\begin_inset Formula $c^{(k-1)}=\left[c_{0}^{(k-1)},c_{1}^{(k-1)},\dots,c_{k-1}^{(k-1)}\right]$
+\end_inset
+
+ se multiplican por 
+\begin_inset Formula $-r_{k}$
+\end_inset
+
+, escribiendo cada resultado desplazado una columna hacia la derecha en la diagonal inferior.
+ Posteriormente, se suman los valores de cada columna para obtener el nuevo vector de coeficientes 
+\begin_inset Formula $c^{(k)}$
+\end_inset
+
+ de longitud 
+\begin_inset Formula $k+1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+c_{j}^{(k)}=c_{j}^{(k-1)}-r_{k}\cdot c_{j-1}^{(k-1)},\qquad j=0,1,\dots,k
+\]
+
+\end_inset
+
+adoptando la convención de frontera 
+\begin_inset Formula $c_{-1}^{(k-1)}=0$
+\end_inset
+
+ y 
+\begin_inset Formula $c_{k}^{(k-1)}=0$
+\end_inset
+
+.
+ Desde la perspectiva del álgebra computacional y el procesamiento discreto de señales, esta operación es exactamente la 
+\series bold
+convolución discreta
+\series default
+ del arreglo de coeficientes vigente con el núcleo lineal 
+\begin_inset Formula $\left[1,-r_{k}\right]$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+c^{(k)}=c^{(k-1)}*\left[1,-r_{k}\right]
+\]
+
+\end_inset
+
+Al aplicar iterativamente esta convolución en 
+\begin_inset Formula $n$
+\end_inset
+
+ ciclos, el algoritmo calcula de forma incremental los polinomios simétricos elementales sin enumerar las 
+\begin_inset Formula $2^{n}$
+\end_inset
+
+ combinaciones de las relaciones de Viète.
+\end_layout
+
+\begin_layout Definicion
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Dado un arreglo de raíces 
+\begin_inset Formula $\left[r_{1},r_{2},\dots,r_{n}\right]$
+\end_inset
+
+, la 
+\series bold
+Multiplicación Sintética
+\series default
+ es el algoritmo iterativo de 
+\begin_inset Formula $n$
+\end_inset
+
+ pasos que parte del coeficiente inicial 
+\begin_inset Formula $c^{(0)}=\left[1\right]$
+\end_inset
+
+ y, en cada ciclo 
+\begin_inset Formula $k$
+\end_inset
+
+, multiplica el arreglo vigente por 
+\begin_inset Formula $-r_{k}$
+\end_inset
+
+ en diagonal descendente para sumar luego por columnas, produciendo al término del ciclo los 
+\begin_inset Formula $n+1$
+\end_inset
+
+ coeficientes del polinomio mónico 
+\begin_inset Formula $f(x)=\prod_{k=1}^{n}(x-r_{k})$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+Multiplicación Sintética
+\end_layout
+
+\begin_layout Teorema
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Para cualquier sucesión de raíces 
+\begin_inset Formula $r_{1},r_{2},\dots,r_{n}$
+\end_inset
+
+ y todo paso 
+\begin_inset Formula $k\in\{0,1,\dots,n\}$
+\end_inset
+
+, el vector 
+\begin_inset Formula $c^{(k)}$
+\end_inset
+
+ generado por la recurrencia 
+\begin_inset Formula $c_{j}^{(k)}=c_{j}^{(k-1)}-r_{k}\cdot c_{j-1}^{(k-1)}$
+\end_inset
+
+ satisface:
+\begin_inset Formula 
+\[
+P_{k}(x)=\sum_{j=0}^{k}c_{j}^{(k)}x^{k-j}=\prod_{i=1}^{k}(x-r_{i})
+\]
+
+\end_inset
+
+y, en consecuencia, cada coeficiente coincide con los polinomios simétricos elementales de Viète: 
+\begin_inset Formula $c_{j}^{(k)}=(-1)^{j}e_{j}(r_{1},\dots,r_{k})$
+\end_inset
+
+ para todo 
+\begin_inset Formula $j=0,1,\dots,k$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+Demostración por inducción matemática sobre 
+\begin_inset Formula $k$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+Caso base (
+\begin_inset Formula $k=0$
+\end_inset
+
+):
+\series default
+ el producto vacío es 
+\begin_inset Formula $P_{0}(x)=1=c_{0}^{(0)}x^{0}$
+\end_inset
+
+, consistente con 
+\begin_inset Formula $c^{(0)}=\left[1\right]$
+\end_inset
+
+ y 
+\begin_inset Formula $e_{0}=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+Hipótesis inductiva:
+\series default
+ supóngase válido para 
+\begin_inset Formula $k-1\ge0$
+\end_inset
+
+ que 
+\begin_inset Formula $P_{k-1}(x)=\sum_{j=0}^{k-1}c_{j}^{(k-1)}x^{k-1-j}=\prod_{i=1}^{k-1}(x-r_{i})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+Paso inductivo:
+\series default
+ al incorporar el factor lineal 
+\begin_inset Formula $(x-r_{k})$
+\end_inset
+
+, se obtiene:
+\begin_inset Formula 
+\[
+P_{k}(x)=P_{k-1}(x)(x-r_{k})=\sum_{j=0}^{k-1}c_{j}^{(k-1)}x^{k-j}-\sum_{j=0}^{k-1}r_{k}c_{j}^{(k-1)}x^{k-1-j}
+\]
+
+\end_inset
+
+Reindexando la segunda suma mediante 
+\begin_inset Formula $m=j+1$
+\end_inset
+
+ y aplicando las condiciones de frontera 
+\begin_inset Formula $c_{-1}^{(k-1)}=c_{k}^{(k-1)}=0$
+\end_inset
+
+, resulta:
+\begin_inset Formula 
+\[
+P_{k}(x)=\sum_{j=0}^{k}\left(c_{j}^{(k-1)}-r_{k}c_{j-1}^{(k-1)}\right)x^{k-j}=\sum_{j=0}^{k}c_{j}^{(k)}x^{k-j}
+\]
+
+\end_inset
+
+Por igualdad de polinomios y las fórmulas de Viète, se concluye que 
+\begin_inset Formula $c_{j}^{(k)}=(-1)^{j}e_{j}(r_{1},\dots,r_{k})$
+\end_inset
+
+ para todo 
+\begin_inset Formula $k\ge0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+Correctitud e Identidad de Viète por Inducción Matemática
+\end_layout
+
+\begin_layout Seccion
+Desarrollo Paso a Paso: Polinomio de Grado 4
+\end_layout
+
+\begin_layout Standard
+Para ilustrar el funcionamiento del método, consideremos el conjunto de cuatro raíces 
+\begin_inset Formula $x=2,3,5,7$
+\end_inset
+
+.
+ Buscamos expandir de manera sistemática la función polinómica:
+\begin_inset Formula 
+\[
+f(x)=(x-2)(x-3)(x-5)(x-7)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Paso 1 (Raíz 
+\begin_inset Formula $x=2$
+\end_inset
+
+):
+\series default
+ Empezamos con el coeficiente 
+\begin_inset Formula $1$
+\end_inset
+
+ y ubicamos al frente el factor 
+\begin_inset Formula $x-2$
+\end_inset
+
+, usando únicamente el multiplicador 
+\begin_inset Formula $-2$
+\end_inset
+
+.
+ Multiplicamos 
+\begin_inset Formula $-2\times1=-2$
+\end_inset
+
+ y ubicamos el resultado en la diagonal hacia abajo, obteniendo los coeficientes 
+\begin_inset Formula $\left[1,-2\right]$
+\end_inset
+
+, equivalentes al polinomio 
+\begin_inset Formula $x-2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Paso 2 (Raíz 
+\begin_inset Formula $x=3$
+\end_inset
+
+):
+\series default
+ El siguiente factor es 
+\begin_inset Formula $x-3$
+\end_inset
+
+ (multiplicador 
+\begin_inset Formula $-3$
+\end_inset
+
+).
+ Multiplicamos 
+\begin_inset Formula $-3\times1=-3$
+\end_inset
+
+ en la diagonal abajo y 
+\begin_inset Formula $-3\times(-2)=6$
+\end_inset
+
+ en la diagonal abajo.
+ Al sumar por columnas se obtiene 
+\begin_inset Formula $\left[1,-5,6\right]$
+\end_inset
+
+, es decir, 
+\begin_inset Formula $x^{2}-5x+6$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Paso 3 (Raíz 
+\begin_inset Formula $x=5$
+\end_inset
+
+):
+\series default
+ Con el factor 
+\begin_inset Formula $x-5$
+\end_inset
+
+ (multiplicador 
+\begin_inset Formula $-5$
+\end_inset
+
+), calculamos en la diagonal 
+\begin_inset Formula $-5\times1=-5$
+\end_inset
+
+, 
+\begin_inset Formula $-5\times(-5)=25$
+\end_inset
+
+ y 
+\begin_inset Formula $-5\times6=-30$
+\end_inset
+
+.
+ Sumando cada columna resultan los coeficientes 
+\begin_inset Formula $\left[1,-10,31,-30\right]$
+\end_inset
+
+, equivalentes a 
+\begin_inset Formula $x^{3}-10x^{2}+31x-30$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Paso 4 (Raíz 
+\begin_inset Formula $x=7$
+\end_inset
+
+):
+\series default
+ Finalmente, para el factor 
+\begin_inset Formula $x-7$
+\end_inset
+
+ (multiplicador 
+\begin_inset Formula $-7$
+\end_inset
+
+), multiplicamos en diagonal obteniendo 
+\begin_inset Formula $-7$
+\end_inset
+
+, 
+\begin_inset Formula $70$
+\end_inset
+
+, 
+\begin_inset Formula $-217$
+\end_inset
+
+ y 
+\begin_inset Formula $210$
+\end_inset
+
+.
+ Al sumar por columnas alcanzamos el arreglo definitivo 
+\begin_inset Formula $\left[1,-17,101,-247,210\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La tabla completa de la 
+\series bold
+Multiplicación Sintética
+\series default
+ muestra el encadenamiento ordenado de diagonales y sumas por columna:
+\begin_inset Formula 
+\[
+\begin{array}{c|rrrrr}
+\text{Factor} & x^{4} & x^{3} & x^{2} & x & x^{0}\\
+\hline \text{Inicio} & 1\\
+x-2\quad(-2) &  & -2\\
+\hline  & 1 & -2\\
+x-3\quad(-3) &  & -3 & 6\\
+\hline  & 1 & -5 & 6\\
+x-5\quad(-5) &  & -5 & 25 & -30\\
+\hline  & 1 & -10 & 31 & -30\\
+x-7\quad(-7) &  & -7 & 70 & -217 & 210\\
+\hline  & 1 & -17 & 101 & -247 & 210
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+De la última fila se lee directamente la función polinómica de cuarto grado buscada:
+\begin_inset Formula 
+\[
+f(x)=x^{4}-17x^{3}+101x^{2}-247x+210
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Ejemplo
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Para diseñar un ejercicio de cálculo de raíces de grado 4, el docente selecciona cuatro enteros aleatorios en 
+\begin_inset Formula $\left[-n,n\right]$
+\end_inset
+
+, por ejemplo 
+\begin_inset Formula $R=\left[2,3,5,7\right]$
+\end_inset
+
+.
+ Al ejecutar los cuatro ciclos de la Multiplicación Sintética obtiene de forma exacta 
+\begin_inset Formula $f(x)=x^{4}-17x^{3}+101x^{2}-247x+210$
+\end_inset
+
+, garantizando que el estudiante podrá factorizar el polinomio mediante División Sintética sin encontrarse con raíces irracionales no previstas.
+\end_layout
+
+\end_inset
+Generación de un polinomio de cuarto grado
+\end_layout
+
+\begin_layout Subseccion
+Extensión a factores no mónicos 
+\begin_inset Formula $(a_{k}x-b_{k})$
+\end_inset
+
+ y raíces múltiples
+\end_layout
+
+\begin_layout Standard
+El esquema anterior construye directamente polinomios mónicos con factores de la forma 
+\begin_inset Formula $(x-r_{k})$
+\end_inset
+
+.
+ Cuando se requieren 
+\series bold
+raíces múltiples
+\series default
+ de multiplicidad 
+\begin_inset Formula $m>1$
+\end_inset
+
+, basta repetir la raíz 
+\begin_inset Formula $m$
+\end_inset
+
+ veces en el arreglo de entrada, dado que cada ciclo aplica nuevamente la convolución con el mismo núcleo lineal.
+\end_layout
+
+\begin_layout Standard
+Asimismo, en la práctica docente del Cálculo Diferencial y el Álgebra Universitaria (Stewart, 2018; Larson y Edwards, 2016; Swokowski y Cole, 2018), es habitual plantear ejercicios con 
+\series bold
+raíces racionales
+\series default
+ 
+\begin_inset Formula $r_{k}=b_{k}/a_{k}\in\mathbb{Q}$
+\end_inset
+
+ (con 
+\begin_inset Formula $a_{k}\in\mathbb{Z}^{+}$
+\end_inset
+
+ y 
+\begin_inset Formula $\mathrm{mcd}(a_{k},b_{k})=1$
+\end_inset
+
+), utilizando factores lineales con coeficientes enteros 
+\begin_inset Formula $(a_{k}x-b_{k})$
+\end_inset
+
+ para evitar coeficientes fraccionarios en el enunciado.
+ Para generalizar el algoritmo a este caso, basta escalar la fila actual por 
+\begin_inset Formula $a_{k}$
+\end_inset
+
+ antes de sumarle la diagonal multiplicada por 
+\begin_inset Formula $-b_{k}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+c_{j}^{(k)}=a_{k}\cdot c_{j}^{(k-1)}-b_{k}\cdot c_{j-1}^{(k-1)},\qquad j=0,1,\dots,k
+\]
+
+\end_inset
+
+con la misma convención de frontera 
+\begin_inset Formula $c_{-1}^{(k-1)}=c_{k}^{(k-1)}=0$
+\end_inset
+
+, lo que equivale a la convolución discreta 
+\begin_inset Formula $c^{(k)}=c^{(k-1)}*\left[a_{k},-b_{k}\right]$
+\end_inset
+
+.
+ De este modo, el procedimiento genera cualquier polinomio factorizable en 
+\begin_inset Formula $\mathbb{Z}[x]$
+\end_inset
+
+ con coeficiente principal 
+\begin_inset Formula $\prod_{k=1}^{n}a_{k}$
+\end_inset
+
+ sin introducir fracciones intermedias.
+ Por ejemplo, para construir el polinomio con factores 
+\begin_inset Formula $(2x-1)$
+\end_inset
+
+ y 
+\begin_inset Formula $(3x+2)$
+\end_inset
+
+ (es decir, 
+\begin_inset Formula $(a_{1},b_{1})=(2,1)$
+\end_inset
+
+ y 
+\begin_inset Formula $(a_{2},b_{2})=(3,-2)$
+\end_inset
+
+): en el ciclo 1 se parte de 
+\begin_inset Formula $c^{(0)}=[1]$
+\end_inset
+
+, se escala por 
+\begin_inset Formula $2$
+\end_inset
+
+ y se suma la diagonal con 
+\begin_inset Formula $-1$
+\end_inset
+
+ para obtener 
+\begin_inset Formula $c^{(1)}=[2,-1]$
+\end_inset
+
+; en el ciclo 2 se escala 
+\begin_inset Formula $c^{(1)}$
+\end_inset
+
+ por 
+\begin_inset Formula $3$
+\end_inset
+
+ dando 
+\begin_inset Formula $[6,-3,0]$
+\end_inset
+
+ y se suma la diagonal multiplicada por 
+\begin_inset Formula $-(-2)=2$
+\end_inset
+
+ dada por 
+\begin_inset Formula $[0,4,-2]$
+\end_inset
+
+, produciendo 
+\begin_inset Formula $c^{(2)}=[6,1,-2]$
+\end_inset
+
+, es decir, 
+\begin_inset Formula $f(x)=6x^{2}+x-2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Seccion
+Estructura Cíclica e Implementación Algorítmica
+\end_layout
+
+\begin_layout Standard
+Como puede observarse en el desarrollo anterior, el proceso es completamente 
+\series bold
+cíclico y ordenado
+\series default
+.
+ Si almacenamos las 
+\begin_inset Formula $n$
+\end_inset
+
+ raíces en un arreglo unidimensional, bastará un ciclo de 
+\begin_inset Formula $n$
+\end_inset
+
+ iteraciones para obtener al final un arreglo unidimensional con los 
+\begin_inset Formula $n+1$
+\end_inset
+
+ coeficientes del polinomio.
+\end_layout
+
+\begin_layout Standard
+Desde el punto de vista computacional, en la iteración 
+\begin_inset Formula $k$
+\end_inset
+
+-ésima el vector parcial posee longitud 
+\begin_inset Formula $k$
+\end_inset
+
+, por lo que se ejecutan 
+\begin_inset Formula $k$
+\end_inset
+
+ multiplicaciones y 
+\begin_inset Formula $k-1$
+\end_inset
+
+ sumas.
+ En consecuencia, el costo total en operaciones aritméticas elementales es:
+\begin_inset Formula 
+\[
+\sum_{k=1}^{n}k=\frac{n(n+1)}{2}\in O(n^{2})
+\]
+
+\end_inset
+
+mientras que la memoria requerida se mantiene en 
+\begin_inset Formula $O(n)$
+\end_inset
+
+, pues solo es necesario conservar la fila de coeficientes acumulados.
+ Además, si todas las raíces son enteras, todas las operaciones intermedias permanecen en aritmética entera exacta.
+\end_layout
+
+\begin_layout Standard
+A continuación se presenta la implementación optimizada del algoritmo en lenguaje Python, junto con su extensión a factores no mónicos y el algoritmo dual de División Sintética.
+ A diferencia de una formulación ingenua basada en concatenar listas auxiliares por cada iteración (relleno con ceros a izquierda y derecha seguido de un emparejamiento mediante 
+\family typewriter
+zip
+\family default
+), aquí se construye directamente el nuevo vector de coeficientes en un único recorrido por ciclo, evitando la creación de tres listas intermedias por paso y reduciendo la sobrecarga de memoria en grados elevados:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+def multiplicacion_sintetica(raices):
+\end_layout
+
+\begin_layout Plain Layout
+    coef = [1]
+\end_layout
+
+\begin_layout Plain Layout
+    for r in raices:
+\end_layout
+
+\begin_layout Plain Layout
+        # c_j^(k) = c_j^(k-1) - r * c_{j-1}^(k-1)
+\end_layout
+
+\begin_layout Plain Layout
+        nuevo = [coef[0]]
+\end_layout
+
+\begin_layout Plain Layout
+        for j in range(1, len(coef)):
+\end_layout
+
+\begin_layout Plain Layout
+            nuevo.append(coef[j] - r * coef[j - 1])
+\end_layout
+
+\begin_layout Plain Layout
+        nuevo.append(-r * coef[-1])
+\end_layout
+
+\begin_layout Plain Layout
+        coef = nuevo
+\end_layout
+
+\begin_layout Plain Layout
+    return coef
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+def multiplicacion_sintetica_general(factores):
+\end_layout
+
+\begin_layout Plain Layout
+    coef = [1]
+\end_layout
+
+\begin_layout Plain Layout
+    for a, b in factores:
+\end_layout
+
+\begin_layout Plain Layout
+        # Factores no monicos (a*x - b) en Z[x]
+\end_layout
+
+\begin_layout Plain Layout
+        nuevo = [a * coef[0]]
+\end_layout
+
+\begin_layout Plain Layout
+        for j in range(1, len(coef)):
+\end_layout
+
+\begin_layout Plain Layout
+            nuevo.append(a * coef[j] - b * coef[j - 1])
+\end_layout
+
+\begin_layout Plain Layout
+        nuevo.append(-b * coef[-1])
+\end_layout
+
+\begin_layout Plain Layout
+        coef = nuevo
+\end_layout
+
+\begin_layout Plain Layout
+    return coef
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+def division_sintetica(coeficientes, x0):
+\end_layout
+
+\begin_layout Plain Layout
+    cociente = [coeficientes[0]]
+\end_layout
+
+\begin_layout Plain Layout
+    for c in coeficientes[1:]:
+\end_layout
+
+\begin_layout Plain Layout
+        cociente.append(cociente[-1] * x0 + c)
+\end_layout
+
+\begin_layout Plain Layout
+    # Por la convencion de Horner, el ultimo valor
+\end_layout
+
+\begin_layout Plain Layout
+    # acumulado es precisamente el residuo R = f(x0)
+\end_layout
+
+\begin_layout Plain Layout
+    residuo = cociente.pop()
+\end_layout
+
+\begin_layout Plain Layout
+    return cociente, residuo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Seccion
+Dualidad con la División Sintética y Evaluación Exacta
+\end_layout
+
+\begin_layout Standard
+La relación entre la Multiplicación Sintética y la División Sintética —formalizada históricamente en los trabajos de Ruffini (1804) y Horner (1819)— establece una dualidad algebraica y algorítmica inmediata.
+ Por un lado, si aplicamos la División Sintética sobre el polinomio construido 
+\begin_inset Formula $f(x)=x^{4}-17x^{3}+101x^{2}-247x+210$
+\end_inset
+
+ evaluando sucesivamente en las raíces en orden inverso (
+\begin_inset Formula $x=7,5,3,2$
+\end_inset
+
+), recuperamos en cada paso exactamente el cociente previo y un residuo nulo:
+\end_layout
+
+\begin_layout Itemize
+Al dividir entre 
+\begin_inset Formula $(x-7)$
+\end_inset
+
+: cociente 
+\begin_inset Formula $\left[1,-10,31,-30\right]$
+\end_inset
+
+ y residuo 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Al dividir entre 
+\begin_inset Formula $(x-5)$
+\end_inset
+
+: cociente 
+\begin_inset Formula $\left[1,-5,6\right]$
+\end_inset
+
+ y residuo 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Al dividir entre 
+\begin_inset Formula $(x-3)$
+\end_inset
+
+: cociente 
+\begin_inset Formula $\left[1,-2\right]$
+\end_inset
+
+ y residuo 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Al dividir entre 
+\begin_inset Formula $(x-2)$
+\end_inset
+
+: cociente 
+\begin_inset Formula $\left[1\right]$
+\end_inset
+
+ y residuo 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Por otro lado, en virtud del Teorema del Residuo, la División Sintética permite evaluar cualquier polinomio 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ numéricamente y de forma exacta en cualquier punto 
+\begin_inset Formula $x_{0}$
+\end_inset
+
+ en un instante, en tiempo lineal 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ y sin necesidad de calcular potencias explícitas 
+\begin_inset Formula $x_{0}^{k}$
+\end_inset
+
+.
+ Por ejemplo, al aplicar la División Sintética sobre 
+\begin_inset Formula $\left[1,-17,101,-247,210\right]$
+\end_inset
+
+ en 
+\begin_inset Formula $x_{0}=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\begin{array}{r|rrrrr}
+1 & 1 & -17 & 101 & -247 & 210\\
+ &  & 1 & -16 & 85 & -162\\
+\hline  & 1 & -16 & 85 & -162 & 48
+\end{array}
+\]
+
+\end_inset
+
+se obtiene de manera exacta 
+\begin_inset Formula $f(1)=48$
+\end_inset
+
+, resultado que coincide con 
+\begin_inset Formula $(1-2)(1-3)(1-5)(1-7)=(-1)(-2)(-4)(-6)=48$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Observacion
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+La combinación de la Multiplicación Sintética para construir polinomios a partir de sus raíces y la División Sintética para evaluar y deflactar ofrece un ciclo cerrado de gran valor tanto en la enseñanza del Cálculo Diferencial como en la generación automatizada de ejercicios y pruebas numéricas exactas.
+\end_layout
+
+\end_inset
+Valor pedagógico y computacional
+\end_layout
+
+\begin_layout Seccion
+Conclusiones
+\end_layout
+
+\begin_layout Standard
+El algoritmo de la 
+\series bold
+Multiplicación Sintética
+\series default
+ ofrece una alternativa directa, ordenada y fácil de programar para generar polinomios de grado arbitrario a partir de un conjunto conocido de raíces.
+ Frente a la expansión paramétrica tradicional, que resulta práctica solo hasta grados bajos, este enfoque convierte el problema en un ciclo uniforme de 
+\begin_inset Formula $n$
+\end_inset
+
+ pasos sobre un único arreglo unidimensional, conservando la exactitud aritmética en cada etapa.
+\end_layout
+
+\begin_layout Standard
+Asimismo, su correspondencia inversa con la 
+\series bold
+División Sintética
+\series default
+ refuerza la comprensión conceptual del estudiante sobre la factorización polinómica y habilita la evaluación numérica exacta de cualquier polinomio en un instante.
+\end_layout
+
+\begin_layout Seccion
+Referencias Bibliográficas
+\end_layout
+
+\begin_layout ReferenciaRevista
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Horner, W. G.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+1819
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+A new method of solving numerical equations of all orders, by continuous approximation
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Philosophical Transactions of the Royal Society of London
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+109
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 6
+status open
+
+\begin_layout Plain Layout
+308–335
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ReferenciaLibro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Larson, R., & Edwards, B. H.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+2016
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+Cálculo (10.ª ed.)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+Cengage Learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ReferenciaLibro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Ruffini, P.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+1804
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+Sopra la determinazione delle radici nelle equazioni numeriche di qualunque grado
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Modena
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+Società Tipografica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ReferenciaLibro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Stewart, J.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+2018
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+Cálculo de una variable: Trascendentes tempranas (8.ª ed.)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+Cengage Learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ReferenciaLibro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Swokowski, E. W., & Cole, J. A.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+2018
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+Álgebra y trigonometría con geometría analítica (13.ª ed.)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+Cengage Learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ReferenciaLibro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Viète, F.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+1646
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+Opera mathematica (F. van Schooten, Ed.)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Leiden
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+Ex Officina Elzeviriorum
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout InformacionAutor
+
+\end_layout
+
+\end_body
+\end_document
